@@ -9,6 +9,9 @@ A simple node script that deletes gmail emails by label (spam,trash...)
 - Node.js
 - Yarn
 
+##### NOTE: 
+- make sure to enable the Gmail API in your google account and download the keys.json file
+
 ## Installation
 
 ```bash
@@ -19,7 +22,6 @@ yarn install
 
 ```bash
 yarn start
-
 ```
 
 ## Contributing
