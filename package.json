@@ -1,0 +1,11 @@
+{
+  "name": "delete-spam-email-automation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/local-auth": "2.1.0",
+    "googleapis": "105",
+    "install": "^0.13.0"
+  }
+}
