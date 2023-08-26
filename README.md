@@ -15,13 +15,13 @@ A simple node script that deletes gmail emails by label (spam,trash...)
 ## Installation
 
 ```bash
-yarn install
+pnpm install
 ```
 
 ## Usage
 
 ```bash
-yarn start
+pnpm start
 ```
 
 ## Contributing

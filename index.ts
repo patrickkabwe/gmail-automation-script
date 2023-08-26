@@ -1,8 +1,7 @@
+import { google } from "googleapis";
+import { authorize } from "./utils";
 
-const { google } = require("googleapis");
-const { authorize } = require("./utils");
-
-async function deleteMessageByLabels(auth) {
+async function deleteMessageByLabels(auth: any) {
   const gmail = google.gmail({ version: "v1", auth });
   const res = await gmail.users.labels.list({
     userId: "me",
@@ -13,28 +12,24 @@ async function deleteMessageByLabels(auth) {
     return;
   }
 
-  // delete spam email every week
-
   const reps = await await gmail.users.messages.list({
     userId: "me",
     includeSpamTrash: true,
-    maxResults: 500,
-    labelIds: [
-      // "CATEGORY_PERSONAL",
-      // "CATEGORY_PROMOTIONS",
-      "CATEGORY_SOCIAL",
-    ],
+    maxResults: 200,
+    labelIds: ["TRASH"],
   });
   const messages = reps.data.messages;
-  console.log("Found: ", messages?.length);
-  if (messages?.length > 0) {
-    const messageId = messages.map((message) => [message.id]);
+  console.log("Found: ", messages);
+  if (messages && messages?.length > 0) {
+    const messageId = messages.map((message) => message.id!);
     const res = await gmail.users.messages.batchDelete({
       userId: "me",
       requestBody: {
-        ids: [messageId],
+        ids: messageId,
       },
     });
+
+    console.log("Deleted: ", res.data, res.status);
   } else {
     console.log("No messages found.");
   }
@@ -42,4 +37,8 @@ async function deleteMessageByLabels(auth) {
   console.log("DONE! ");
 }
 
-authorize().then(deleteMessageByLabels).catch(console.error);
+function main() {
+  authorize().then(deleteMessageByLabels).catch(console.error);
+}
+
+main();
